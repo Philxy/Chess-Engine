@@ -22,7 +22,7 @@ public class Screen extends Application {
     private static BorderPane borderPane = new BorderPane();
     private static GridPane board = new GridPane();
 
-    public static final int size = 130;
+    public static final int size = 50;
     private static Map<String, Image> pieces = new HashMap<String, Image>();
     private static String[] allPieces = {"bR", "bN", "bB", "bQ", "bK", "bP", "wR", "wK", "wB", "wQ", "wN", "wP"};
 

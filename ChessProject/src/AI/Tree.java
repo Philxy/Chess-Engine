@@ -17,15 +17,16 @@ public class Tree {
     /**
      * Constructs a  tree of all the possible position given a game state. The depth of the tree
      * is being controlled by a parameter.
+     *
      * @param gs
      * @param depth
      */
     public Tree(GameState gs, int depth) {
         this.depth = depth;
-        for(Move m: gs.getAllMoves()) {
+        for (Move m : gs.getAllMoves()) {
             possibleMoves.add(new Node(m));
         }
-        for(Node n: possibleMoves) {
+        for (Node n : possibleMoves) {
             n.findMoves(depth);
         }
     }
@@ -36,29 +37,30 @@ public class Tree {
 
     /**
      * Finds the best move of the move tree by applying the alpha beta puring algorithm. If multiple moves of the same
-     * evaluation are being found, a random one will be returned. The preciseness of the muve is heavily determined
+     * evaluation are being found, a random one will be returned. The preciseness of the move is heavily determined
      * by the strength of the evaluation function.
+     *
      * @return
      */
     public Move bestEval() {
         ArrayList<Integer> evals = new ArrayList<>();
-        for(Node n: possibleMoves) {
+        for (Node n : possibleMoves) {
             evals.add(n.alphaBetaPuring(n));
         }
 
         // print moves with evals
         ArrayList<String> s = new ArrayList<>();
-        for(int i = 0; i< possibleMoves.size(); i++) {
+        for (int i = 0; i < possibleMoves.size(); i++) {
             s.add(possibleMoves.get(i).getMove().toString() + " " + evals.get(i));
         }
         System.out.println(s.toString());
 
         ArrayList<Node> temp = new ArrayList<>();
-        if(possibleMoves.size() != 0) {
-            if(possibleMoves.get(0).getMove().getExecState().getColor() == 'w') {
+        if (possibleMoves.size() != 0) {
+            if (possibleMoves.get(0).getMove().getExecState().getColor() == 'w') {
                 int minEval = Calcutations.findMin(evals);
-                for(int i = 0; i < evals.size();i++) {
-                    if(Integer.valueOf(evals.get(i)) == minEval) {
+                for (int i = 0; i < evals.size(); i++) {
+                    if (Integer.valueOf(evals.get(i)) == minEval) {
                         temp.add(possibleMoves.get(i));
                     }
                 }
@@ -66,8 +68,8 @@ public class Tree {
                 return temp.get(randIndex).getMove();
             } else {
                 int maxEval = Calcutations.findMax(evals);
-                for(int i = 0; i < evals.size();i++) {
-                    if(Integer.valueOf(evals.get(i)) == maxEval) {
+                for (int i = 0; i < evals.size(); i++) {
+                    if (Integer.valueOf(evals.get(i)) == maxEval) {
                         temp.add(possibleMoves.get(i));
                     }
                 }
@@ -114,17 +116,18 @@ public class Tree {
 
         /**
          * Given a game state this method will construct a node tree containing all possible positions of a certain depth
+         *
          * @param depth
          */
         public void findMoves(int depth) {
-            if(depth == 0) {
+            if (depth == 0) {
                 return;
             }
             ArrayList<Move> possMoves = this.getMove().getExecState().getAllMoves();
-            for(Move m: possMoves ) {
+            for (Move m : possMoves) {
                 Node newN = new Node(m);
                 this.addChild(newN);
-                newN.findMoves(depth-1);
+                newN.findMoves(depth - 1);
             }
         }
 
@@ -132,18 +135,19 @@ public class Tree {
          * Implements the alpha beta puring algorithm. It recursively checks all the positions of a node tree beginning
          * at the bottom and returns the most favourable evaluation of all the positions considering the opponent responds
          * perfectly (according to the evaluation method) each move.
+         *
          * @param n
          * @return
          */
         public int alphaBetaPuring(Node n) {
-            if(n.getChildren().size() == 0) {
+            if (n.getChildren().size() == 0) {
                 return n.getMove().getExecState().getEval();
             } else {
                 List<Integer> I = new ArrayList<>();
-                for(Node child: n.getChildren()) {
+                for (Node child : n.getChildren()) {
                     I.add(alphaBetaPuring(child));
                 }
-                if(this.getMove().getExecState().blackNextMove()) {
+                if (this.getMove().getExecState().blackNextMove()) {
                     return Calcutations.findMin(I);
                 } else {
                     return Calcutations.findMax(I);
@@ -153,7 +157,6 @@ public class Tree {
         }
 
         /**
-         *
          * @return Children of node
          */
         private ArrayList<Node> getChildren() {
@@ -161,11 +164,6 @@ public class Tree {
         }
 
     }
-
-
-
-
-
 
 
 }
