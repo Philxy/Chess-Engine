@@ -26,7 +26,7 @@ public class GameState {
         initPieceList();
     }
 
-    public GameState(Board board, boolean blackNextMove,  List<Piece> allPieces) {
+    public GameState(Board board, boolean blackNextMove, List<Piece> allPieces) {
         this.currentBoard = board;
         this.blackNextMove = blackNextMove;
         this.allPieces = allPieces;
@@ -42,20 +42,15 @@ public class GameState {
     }
 
 
-
-
-
-
     /**
-     * Evaluetes the currend board and adds all pieces to a list. The results will be set as the class
+     * Evaluates the current board and adds all pieces to a list. The results will be set as the class
      * variables allPieces and evaluation
-     *
      */
     public void initPieceList() {
         List<Piece> pieces = new ArrayList<>();
         for (int r = 0; r < 8; r++) {
             for (int c = 0; c < 8; c++) {
-                Piece p = getSq(r,c);
+                Piece p = getSq(r, c);
                 if (p != null) {
                     pieces.add(p);
                 }
@@ -66,6 +61,7 @@ public class GameState {
 
     /**
      * Getter for all  pieces on the in the current game state
+     *
      * @return
      */
     public List<Piece> getAllPieces() {
@@ -75,11 +71,12 @@ public class GameState {
     /**
      * Piece placed at startSq will replace the piece at endSq.
      * If a piece has been taken it will be removed from the list containing all pieces
+     *
      * @param startSq start square
-     * @param endSq end square
+     * @param endSq   end square
      */
     public void makeMove(int[] startSq, int[] endSq) {
-        if(getSq(endSq[0], endSq[1]) != null) {
+        if (getSq(endSq[0], endSq[1]) != null) {
             allPieces.remove(getSq(endSq[0], endSq[1]));
         }
         getSq(startSq[0], startSq[1]).setPos(endSq);
@@ -90,12 +87,11 @@ public class GameState {
 
     public int getEval() {
         int eval = 0;
-        for(Piece p: allPieces) {
+        for (Piece p : allPieces) {
             eval += p.getValue();
         }
         return eval;
     }
-
 
 
     public void setBoard(Board newBoard) {
@@ -135,7 +131,7 @@ public class GameState {
 
 
     public void setSq(Piece p, int row, int col) {
-        if(this.getSq(row, col) != null) {
+        if (this.getSq(row, col) != null) {
             this.allPieces.remove(p);
         }
         this.currentBoard.setSq(new int[]{row, col}, p);
@@ -148,12 +144,13 @@ public class GameState {
 
     /**
      * Returns a list containing all the pieces of the current color.
+     *
      * @return
      */
     public List<Piece> getCurrPieces() {
-        List<Piece> currPieces= new LinkedList<>();
-        for(Piece p: allPieces) {
-            if(p.getColor() == this.getColor()) {
+        List<Piece> currPieces = new LinkedList<>();
+        for (Piece p : allPieces) {
+            if (p.getColor() == this.getColor()) {
                 currPieces.add(p);
             }
         }
@@ -162,12 +159,13 @@ public class GameState {
 
     /**
      * Returns a list containing all the leagal moves of the current game state.
+     *
      * @return
      */
     public ArrayList<Move> getAllMoves() {
         ArrayList<Move> moves = new ArrayList<>();
-        for(Piece p: allPieces) {
-            if(p.getColor() == this.getColor()) {
+        for (Piece p : allPieces) {
+            if (p.getColor() == this.getColor()) {
                 moves.addAll(p.getLegalMoves(this));
             }
         }

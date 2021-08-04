@@ -2,7 +2,6 @@ package Game;
 
 
 import GUI.Screen;
-import Pieces.Piece;
 import javafx.application.Application;
 
 public class Main  {

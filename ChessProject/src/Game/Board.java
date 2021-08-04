@@ -5,34 +5,32 @@ import Pieces.*;
 public class Board {
 
 
-
     private Piece[][] board;
     private String[][] boardS = new String[8][8];
 
     /**
-     * Constructor creating an entirely new board with the default setup
+     * Default constructor creating a board with the default setup
      */
     public Board() {
         Piece[][] board = {
                 {new Rook('b'), new Knight('b'), new Bishop('b'), new Queen('b'), new King('b'), new Bishop('b'), new Knight('b'), new Rook('b')},
                 {new Pawn('b'), new Pawn('b'), new Pawn('b'), new Pawn('b'), new Pawn('b'), new Pawn('b'), new Pawn('b'), new Pawn('b')},
-                {null,null,null,null,null,null,null,null},
-                {null,null,null,null,null,null,null,null},
-                {null,null,null,null,null,null,null,null},
-                {null,null,null,null,null,null,null,null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
                 {new Pawn('w'), new Pawn('w'), new Pawn('w'), new Pawn('w'), new Pawn('w'), new Pawn('w'), new Pawn('w'), new Pawn('w')},
                 {new Rook('w'), new Knight('w'), new Bishop('w'), new Queen('w'), new King('w'), new Bishop('w'), new Knight('w'), new Rook('w')}
         };
-        for(int r = 0; r < 8; r++) {
+        for (int r = 0; r < 8; r++) {
             for (int c = 0; c < 8; c++) {
-                if(board[r][c] != null) {
-                    board[r][c].setPos(new int[]{r,c});
+                if (board[r][c] != null) {
+                    board[r][c].setPos(new int[]{r, c});
                 }
             }
         }
         this.board = board;
     }
-
 
 
     /**
@@ -47,24 +45,24 @@ public class Board {
      * Initializes a 2dim string board containing the name of all pieces at the corresponding position
      */
     public void initStringPieces() {
-        for(int r = 0; r < 8; r++) {
+        for (int r = 0; r < 8; r++) {
             for (int c = 0; c < 8; c++) {
-                if(getSq(r,c) != null) {
-                    char color  = board[r][c].getColor();
+                if (getSq(r, c) != null) {
+                    char color = board[r][c].getColor();
                     Piece p = board[r][c];
-                    if(p == null ) {
+                    if (p == null) {
                         boardS[r][c] = "--";
-                    } else if(p instanceof Rook) {
+                    } else if (p instanceof Rook) {
                         boardS[r][c] = color + "R";
-                    } else if(p instanceof Queen) {
+                    } else if (p instanceof Queen) {
                         boardS[r][c] = color + "Q";
-                    } else if(p instanceof King) {
+                    } else if (p instanceof King) {
                         boardS[r][c] = color + "K";
-                    } else if(p instanceof Pawn) {
+                    } else if (p instanceof Pawn) {
                         boardS[r][c] = color + "P";
-                    } else if(p instanceof Bishop) {
+                    } else if (p instanceof Bishop) {
                         boardS[r][c] = color + "B";
-                    } else if(p instanceof Knight) {
+                    } else if (p instanceof Knight) {
                         boardS[r][c] = color + "N";
                     }
                 }
