@@ -12,7 +12,7 @@ import java.util.Random;
 public class Calcutations {
 
 
-    private static final int depth = 2;
+    public static final int depth = 2;
 
 
     /**
@@ -32,12 +32,6 @@ public class Calcutations {
         return result;
     }
 
-
-    public static void findBestMove(GameState gs) {
-        Tree tree = new Tree(gs, depth);
-
-
-    }
 
 
     /**

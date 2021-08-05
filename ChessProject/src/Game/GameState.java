@@ -33,6 +33,7 @@ public class GameState {
     }
 
 
+
     public void setAllPieces(List<Piece> allPieces) {
         this.allPieces = allPieces;
     }

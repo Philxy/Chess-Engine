@@ -22,7 +22,7 @@ public class Screen extends Application {
     private static BorderPane borderPane = new BorderPane();
     private static GridPane board = new GridPane();
 
-    public static final int size = 50;
+    public static final int size = 80;
     private static Map<String, Image> pieces = new HashMap<String, Image>();
     private static String[] allPieces = {"bR", "bN", "bB", "bQ", "bK", "bP", "wR", "wK", "wB", "wQ", "wN", "wP"};
 
@@ -65,9 +65,9 @@ public class Screen extends Application {
             for (int c = 0; c < 8; c++) {
                 Rectangle square = new Rectangle(size, size);
                 if ((r + c) % 2 == 0) {
-                    square.setFill(Color.DARKGRAY);
+                    square.setFill(Color.WHITE);
                 } else {
-                    square.setFill(Color.PURPLE);
+                    square.setFill(Color.BLUEVIOLET);
                 }
                 board.add(square, c, r);
             }

@@ -2,6 +2,7 @@ package AI;
 
 import Game.GameState;
 import Game.Move;
+import Game.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,8 @@ public class Tree {
      * @param depth
      */
     public Tree(GameState gs, int depth) {
+        long t1 = System.nanoTime();
+
         this.depth = depth;
         for (Move m : gs.getAllMoves()) {
             possibleMoves.add(new Node(m));
@@ -30,11 +33,69 @@ public class Tree {
         for (Node n : possibleMoves) {
             n.findMoves(depth);
         }
+        long t2 = System.nanoTime();
+        System.out.println("Needed " + Math.abs(t2 - t1) / Math.pow(10, 6) + " to find " + size + " moves");
     }
 
     public int getSize() {
         return size;
     }
+
+    /**
+     * Creates a tree of all reachable positions given a certain depth. The process of constructing can be parallelized
+     * by spreading the nodes of the tree to multiple threads.
+     *
+     * @param gs
+     * @param depth
+     * @param lol
+     */
+    public Tree(GameState gs, int depth, int lol) {
+        long ta = System.nanoTime();
+        this.depth = depth;
+        for (Move m : gs.getAllMoves()) {
+            possibleMoves.add(new Node(m));
+        }
+        int cores = Runtime.getRuntime().availableProcessors();
+        ArrayList[] partitionedMoves = Util.splitList(possibleMoves, cores);
+        CustomThread[] threads = new CustomThread[cores];
+
+        for (int i = 0; i < cores; i++) {
+            CustomThread t = new CustomThread(partitionedMoves[i], depth);
+            threads[i] = t;
+            t.start();
+        }
+        try {
+            for (int i = 0; i < cores; i++) {
+                threads[i].join();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        long te = System.nanoTime();
+        System.out.println("Needed " + Math.abs(te - ta) / Math.pow(10, 6) + "ms to find " + size + " moves using " + cores + " threads.");
+    }
+
+    /**
+     * Thread which is meant to find possible positions given a depth.
+     */
+    public class CustomThread extends Thread {
+        ArrayList<Node> nodes;
+        int depth;
+
+        public CustomThread(ArrayList<Node> nodes, int d) {
+            this.nodes = nodes;
+            this.depth = d;
+        }
+
+        public void run() {
+            for (Node n : this.nodes) {
+                n.findMoves(this.depth);
+            }
+        }
+    }
+
 
     /**
      * Finds the best move of the move tree by applying the alpha beta puring algorithm. If multiple moves of the same
@@ -44,6 +105,8 @@ public class Tree {
      * @return
      */
     public Move bestEval() {
+        long t1 = System.nanoTime();
+
         ArrayList<Integer> evals = new ArrayList<>();
         for (Node n : possibleMoves) {
             evals.add(n.alphaBetaPuring(n));
@@ -74,6 +137,8 @@ public class Tree {
                     }
                 }
                 int randIndex = (new Random()).nextInt(temp.size());
+                long t2 = System.nanoTime();
+                System.out.println("Time needed to decide which move to pick in ms: " + Math.abs(t2 - t1)/Math.pow(10, 6));
                 return temp.get(randIndex).getMove();
             }
         }
@@ -140,7 +205,7 @@ public class Tree {
          */
         public int alphaBetaPuring(Node n) {
             if (n.getChildren().size() == 0) {
-                return n.getMove().getExecState().getEval();
+                return Evaluation.evaluate(n.getMove().getExecState());
             } else {
                 List<Integer> I = new ArrayList<>();
                 for (Node child : n.getChildren()) {

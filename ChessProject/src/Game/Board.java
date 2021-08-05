@@ -41,6 +41,7 @@ public class Board {
     }
 
 
+
     /**
      * Initializes a 2dim string board containing the name of all pieces at the corresponding position
      */
