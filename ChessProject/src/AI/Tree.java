@@ -3,8 +3,9 @@ package AI;
 import Game.GameState;
 import Game.Move;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Tree {
 
@@ -47,7 +48,6 @@ public class Tree {
         for (Node n : possibleMoves) {
             evals.add(n.alphaBetaPuring(n));
         }
-
         // print moves with evals
         ArrayList<String> s = new ArrayList<>();
         for (int i = 0; i < possibleMoves.size(); i++) {
@@ -77,7 +77,6 @@ public class Tree {
                 return temp.get(randIndex).getMove();
             }
         }
-
         return null;
     }
 
@@ -152,7 +151,6 @@ public class Tree {
                 } else {
                     return Calcutations.findMax(I);
                 }
-
             }
         }
 

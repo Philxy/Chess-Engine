@@ -1,17 +1,12 @@
 package GUI;
 
-import AI.Calculation;
 import AI.Calcutations;
-import AI.NodeTree;
 import AI.Tree;
 import Game.Main;
 import Game.Move;
-import Pieces.Piece;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
-import java.util.Arrays;
 
 public class nextMove implements EventHandler<KeyEvent> {
 
@@ -48,7 +43,7 @@ public class nextMove implements EventHandler<KeyEvent> {
 
         if(e.getCode().equals(KeyCode.SPACE)) {
             long t1 = System.nanoTime();
-            AI.Tree tree = new Tree(Main.getMainGS(), 2);
+            AI.Tree tree = new Tree(Main.getMainGS(), 3);
             System.out.println(tree.getSize());
             tree.bestEval().updateBoard();
             long t2 = System.nanoTime();

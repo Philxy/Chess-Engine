@@ -12,23 +12,22 @@ import java.util.Random;
 public class Calcutations {
 
 
-
     private static final int depth = 2;
-
 
 
     /**
      * This method finds a random piece in the board and returns one of its legal moves randomly.
+     *
      * @return
      */
     public static Move findRandomMove(GameState gs) {
         List<Piece> piecesOfCurrColor = initCurrPieces(gs);
         int randomPieceIndex = (new Random()).nextInt(piecesOfCurrColor.size());
         Piece randPiece = piecesOfCurrColor.get(randomPieceIndex);
-        while(randPiece.getLegalMoves(gs).size() == 0) {
+        while (randPiece.getLegalMoves(gs).size() == 0) {
             randPiece = piecesOfCurrColor.get((new Random()).nextInt(piecesOfCurrColor.size()));
         }
-        int randomMoveIndex =  (new Random()).nextInt(randPiece.getLegalMoves(gs).size());
+        int randomMoveIndex = (new Random()).nextInt(randPiece.getLegalMoves(gs).size());
         Move result = randPiece.getLegalMoves(gs).get(randomMoveIndex);
         return result;
     }
@@ -43,6 +42,7 @@ public class Calcutations {
 
     /**
      * Returns the maximum of a list consisting of Integers
+     *
      * @param list
      * @return
      */
@@ -57,11 +57,11 @@ public class Calcutations {
 
     /**
      * Finds the minimum of an Integer list.
+     *
      * @param list
      * @return
      */
-    public static Integer findMin(List<Integer> list)
-    {
+    public static Integer findMin(List<Integer> list) {
         if (list == null || list.size() == 0) {
             return null;
         }
@@ -71,20 +71,13 @@ public class Calcutations {
     }
 
 
-
-
-
-
-
-
-
     /**
      * Finds all the pieces of the color which is about to make a move and adds them into an array list.
      */
     private static List<Piece> initCurrPieces(GameState gs) {
         List<Piece> piecesOfCurrColor = new ArrayList<>();
-        for(Piece p: gs.getAllPieces()) {
-            if(p.getColor() == gs.getColor()) {
+        for (Piece p : gs.getAllPieces()) {
+            if (p.getColor() == gs.getColor()) {
                 piecesOfCurrColor.add(p);
             }
         }
