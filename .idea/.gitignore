@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
-/../../../../../../../:\Users\Phil\OneDrive\PK2\Chess-Game-w-Engines\.idea/dataSources/
+/dataSources/
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/

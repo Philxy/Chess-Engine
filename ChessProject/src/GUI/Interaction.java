@@ -3,6 +3,7 @@ package GUI;
 import Game.Main;
 import Game.Move;
 import Game.Util;
+import Pieces.Piece;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -43,14 +44,13 @@ public class Interaction  implements EventHandler<MouseEvent> {
             }
             if(selectedSquares.size() == 2) {
                 int[] sq1 = new int[2];
-                sq1[0] = selectedSquares.get(0)[0].intValue();
-                sq1[1] = selectedSquares.get(0)[1].intValue();
+                sq1[0] = selectedSquares.get(0)[0];
+                sq1[1] = selectedSquares.get(0)[1];
                 int[] sq2 = new int[2];
-                sq2[0] = selectedSquares.get(1)[0].intValue();
-                sq2[1] = selectedSquares.get(1)[1].intValue();
-                selectedPiece = Main.getBoard()[sq1[0]][sq1[1]];
-
-                if(selectedPiece == "--") {
+                sq2[0] = selectedSquares.get(1)[0];
+                sq2[1] = selectedSquares.get(1)[1];
+                Piece selPiece = Main.getMainGS().getSq(sq1[0], sq1[1]);
+                if(selPiece == null) {
                     selectedSquares.clear();
                     Screen.updateBoard();
                 }  else {

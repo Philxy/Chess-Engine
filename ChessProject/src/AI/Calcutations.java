@@ -79,7 +79,7 @@ public class Calcutations {
 
 
     /**
-     * Finds all the pieces of the color which is about to make a move and adds them into a array list.
+     * Finds all the pieces of the color which is about to make a move and adds them into an array list.
      */
     private static List<Piece> initCurrPieces(GameState gs) {
         List<Piece> piecesOfCurrColor = new ArrayList<>();
