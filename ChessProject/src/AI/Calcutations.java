@@ -12,7 +12,7 @@ import java.util.Random;
 public class Calcutations {
 
 
-    public static final int depth = 2;
+    public static final int depth = 3;
 
 
     /**

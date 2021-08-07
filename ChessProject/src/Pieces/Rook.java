@@ -2,9 +2,7 @@ package Pieces;
 
 import Game.GameState;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Rook extends Piece{
 
@@ -17,6 +15,35 @@ public class Rook extends Piece{
 
     public Rook(int[] pos, char color) {
         super(pos, color);
+    }
+
+
+    public int mobility() {
+        int W[][] = {
+                {0,  0,  0,  0,  0,  0,  0,  0},
+                {5, 10, 10, 10, 10, 10, 10,  5},
+                {-5,  0,  0,  0,  0,  0,  0, -5},
+                {-5,  0,  0,  0,  0,  0,  0, -5},
+                {-5,  0,  0,  0,  0,  0,  0, -5},
+                {-5,  0,  0,  0,  0,  0,  0, -5},
+                {-5,  0,  0,  0,  0,  0,  0, -5},
+                {0,  0,  0,  5,  5,  0,  0,  0}};
+
+        int B[][] = {
+                {0,  0,  0,  5,  5,  0,  0,  0},
+                {-5,  0,  0,  0,  0,  0,  0, -5},
+                {-5,  0,  0,  0,  0,  0,  0, -5},
+                {-5,  0,  0,  0,  0,  0,  0, -5},
+                {-5,  0,  0,  0,  0,  0,  0, -5},
+                {-5,  0,  0,  0,  0,  0,  0, -5},
+                {5, 10, 10, 10, 10, 10, 10,  5},
+                {0,  0,  0,  0,  0,  0,  0,  0}};
+
+        if(color == 'w') {
+            return W[this.getPos()[0]][this.getPos()[1]];
+        } else {
+            return B[this.getPos()[0]][this.getPos()[1]];
+        }
     }
 
     public boolean moveLegal(GameState gs, int[] startSq, int[] endSq ) {

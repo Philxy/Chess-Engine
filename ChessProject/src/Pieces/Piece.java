@@ -33,6 +33,7 @@ public abstract class Piece {
         this.pos = position;
     }
 
+    public abstract int mobility();
 
 
 
@@ -270,7 +271,6 @@ public abstract class Piece {
         }
         return legalMoves;
     }
-
 
 
 }

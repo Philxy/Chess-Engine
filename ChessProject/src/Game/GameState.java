@@ -14,6 +14,7 @@ public class GameState {
     private boolean blackNextMove = false;
     private int evaluation;
     private List<Piece> allPieces = new ArrayList<>();
+    private int value;
 
     public GameState(Board board) {
         this.currentBoard = board;

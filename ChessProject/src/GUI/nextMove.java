@@ -26,13 +26,13 @@ public class nextMove implements EventHandler<KeyEvent> {
 
         if (e.getCode().equals(KeyCode.SPACE)) {
             long t1 = System.nanoTime();
-            AI.Tree tree = new Tree(Main.getMainGS(), Calcutations.depth, 4 );
-            System.out.println("Considered " + tree.getSize() + " outcomes");
-            tree.bestEval().updateBoard();
+            AI.Tree tree = new Tree(Main.getMainGS(), Calcutations.depth);
+            //System.out.println(tree.bestEval());
+            tree.alphaBetaPruningMove().updateBoard();
             long t2 = System.nanoTime();
             Screen.getGridPane().getChildren().clear();
             Screen.updateBoard();
-            //System.out.println("Time elapsed in ms: " + Math.abs(t2 - t1) / Math.pow(10, 6));
+            System.out.println("Time elapsed in ms: " + Math.abs(t2 - t1) / Math.pow(10, 6));
         }
 
 

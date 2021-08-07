@@ -20,6 +20,11 @@ public class King extends Piece{
         super(pos, color);
     }
 
+    @Override
+    public int mobility() {
+        return 0;
+    }
+
     public boolean moveLegal(GameState gs, int[] startSq, int[] endSq) {
         // check occupation of squares
         if(gs.getSq(endSq[0], endSq[1]) != null) {

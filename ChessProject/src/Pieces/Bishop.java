@@ -4,8 +4,9 @@ import Game.GameState;
 
 import java.util.Arrays;
 
-public class Bishop extends Piece{
-   private final int value = 3;
+public class Bishop extends Piece {
+
+    private final int value = 3;
 
     public Bishop(char color) {
         super(color);
@@ -15,26 +16,28 @@ public class Bishop extends Piece{
         super(pos, color);
     }
 
-
-
+    @Override
+    public int mobility() {
+        return 0;
+    }
 
 
     public boolean moveLegal(GameState gs, int[] startSq, int[] endSq) {
         // check occupation of destination
-        if(gs.getSq(endSq[0], endSq[1]) != null) {
-            if(gs.getSq(endSq[0], endSq[1]).getColor() == color) {
+        if (gs.getSq(endSq[0], endSq[1]) != null) {
+            if (gs.getSq(endSq[0], endSq[1]).getColor() == color) {
                 return false;
             }
         }
         //basic diagonal movement
-        if( Math.abs(startSq[1] - endSq[1]) != Math.abs(startSq[0] - endSq[0])) {
-            return  false;
+        if (Math.abs(startSq[1] - endSq[1]) != Math.abs(startSq[0] - endSq[0])) {
+            return false;
         }
-        if(Arrays.equals(startSq, endSq)) {
+        if (Arrays.equals(startSq, endSq)) {
             return false;
         }
 
-        if(jumpedDiagonal(gs, startSq, endSq)) {
+        if (jumpedDiagonal(gs, startSq, endSq)) {
             return false;
         }
         return true;
@@ -45,10 +48,10 @@ public class Bishop extends Piece{
     }
 
     public int getValue() {
-        if(color == 'w') {
+        if (color == 'w') {
             return value;
         } else {
-            return value*(-1);
+            return value * (-1);
         }
     }
 }

@@ -43,10 +43,10 @@ public class Move {
         execState.makeMove(startSq, endSq);
 
         // handle checks
-        if (Util.isCheck1(execState, 'b') && gs.getColor() == 'b') {
+        if (Util.isCheck(execState, 'b') && gs.getColor() == 'b') {
             return false;
         }
-        if (Util.isCheck1(execState, 'w') && gs.getColor() == 'w') {
+        if (Util.isCheck(execState, 'w') && gs.getColor() == 'w') {
             return false;
         }
 
