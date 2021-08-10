@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class King extends Piece{
 
 
-    private final int value = 999;
+    private final int value = Integer.MAX_VALUE;
     private boolean moved  = false;
 
 

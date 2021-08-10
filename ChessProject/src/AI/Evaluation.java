@@ -1,7 +1,6 @@
 package AI;
 
 import Game.GameState;
-import Game.Util;
 import Pieces.Piece;
 
 public class Evaluation {
@@ -12,6 +11,7 @@ public class Evaluation {
         // Check mate
 
 
+        /*
         if (Util.isMate(gs)) {
             if (gs.getColor() == 'b') {
                 return Integer.MAX_VALUE;
@@ -19,6 +19,7 @@ public class Evaluation {
                 return Integer.MIN_VALUE;
             }
         }
+         */
 
 
 
