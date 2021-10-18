@@ -64,7 +64,7 @@ public class Board {
         Board newBoard = new Board();
         newBoard.board = Arrays.copyOf(oldBoard.board, 144);
         newBoard.whitePieces.clear();
-        newBoard.whitePieces.addAll(oldBoard.blackPieces);
+        newBoard.whitePieces.addAll(oldBoard.whitePieces);
         newBoard.blackPieces.clear();
         newBoard.blackPieces.addAll(oldBoard.blackPieces);
         newBoard.whiteKingPos = oldBoard.whiteKingPos;

@@ -12,7 +12,7 @@ public class Evaluation {
 
     // weights
     static double MATERIAL = 100;
-    static double MOBILITY = 5;
+    static double MOBILITY = 4;
     static double CHECK = 100;
 
     public static double getEval(GameState gs) {
@@ -31,13 +31,13 @@ public class Evaluation {
         } else if (!gs.getColor() && Util.isCheck(gs.getCurrBoard(), !gs.getColor())) {
             eval += CHECK;
         }
-        if (pieces.size() < 14) {
-            MoveGeneration.DEPTH = 3;
+        if (pieces.size() < 12) {
+            MoveGeneration.DEPTH = 4;
         }
 
         if (pieces.size() < 7) {
-            CHECK = CHECK * 2;
-            MoveGeneration.DEPTH = 4;
+            CHECK = 300;
+            MoveGeneration.DEPTH = 5;
         }
 
         return eval ;
