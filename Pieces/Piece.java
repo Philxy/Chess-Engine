@@ -6,8 +6,7 @@ import Game.Board;
 import java.util.ArrayList;
 
 public abstract class Piece {
-
-
+    
     protected boolean isWhite;
     private int square;
 
