@@ -24,7 +24,6 @@ public class MoveGeneration {
 
 
     public static Move bestMoveIterativeDeepening(GameState gs) {
-
         long t0 = System.currentTimeMillis();
         long t = System.currentTimeMillis();
         Move currMove = null;

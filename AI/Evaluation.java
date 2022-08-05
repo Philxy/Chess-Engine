@@ -15,6 +15,7 @@ public class Evaluation {
     static double MOBILITY = 4;
     static double CHECK = 100;
 
+
     public static double getEval(GameState gs) {
         double eval = 0;
 
@@ -31,7 +32,6 @@ public class Evaluation {
         } else if (!gs.getColor() && Util.isCheck(gs.getCurrBoard(), !gs.getColor())) {
             eval += CHECK;
         }
-
         return eval ;
     }
 }
