@@ -20,18 +20,15 @@ import java.util.Map;
 
 public class Screen extends Application {
 
-    private static BorderPane borderPane = new BorderPane();
-    private static GridPane board = new GridPane();
-
+    private static final BorderPane borderPane = new BorderPane();
+    private static final GridPane board = new GridPane();
     public static final int size = 80;
-    private static Map<String, Image> pieces = new HashMap<String, Image>();
-    private static String[] allPieces = {"bR", "bN", "bB", "bQ", "wQ", "bK", "bP", "wR", "wK", "wB", "wQ", "wN", "wP"};
+    private static final Map<String, Image> pieces = new HashMap<String, Image>();
+    private static final String[] allPieces = {"bR", "bN", "bB", "bQ", "wQ", "bK", "bP", "wR", "wK", "wB", "wQ", "wN", "wP"};
 
     /**
      * Drawing the board and the pieces according to the current game state.
      *
-     * @param primaryStage
-     * @throws Exception
      */
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(borderPane, size * 8, size * 8);
@@ -52,7 +49,7 @@ public class Screen extends Application {
     public static void loadImages() {
         try {
             for (String piece : allPieces) {
-                FileInputStream inputStream = new FileInputStream("src" + File.separator + "Pics" + File.separator + piece + ".png");
+                FileInputStream inputStream = new FileInputStream("Pics" + File.separator + piece + ".png");
                 Image pieceImage = new Image(inputStream);
                 pieces.put(piece, pieceImage);
             }
@@ -82,8 +79,6 @@ public class Screen extends Application {
                     pic.setFitWidth(size);
                     board.add(pic, c, r);
                 }
-
-
             }
         }
     }

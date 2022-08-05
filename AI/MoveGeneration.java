@@ -2,26 +2,85 @@ package AI;
 
 import Game.GameState;
 import Game.Move;
-import jdk.jshell.execution.JdiExecutionControlProvider;
 
 import java.util.*;
+import java.util.concurrent.*;
 
-// This class contains functions which are meant to find the best possible move
+// This class contains functions meant to find the best possible move
 public class MoveGeneration {
 
     public static int DEPTH = 2;
     public static int nodeCount = 0;
-    public static double minusInf = -999999d;
-    public static double plusInf = 999999d;
-    private static double diff = 0.01;
+    public final static double minusInf = -999999d;
+    public final static double plusInf = 999999d;
+    private static final double diff = 0.01;
 
 
-    // Find a random legal move
+    // Get a random legal move
     public static Move randomMove(GameState gs) {
         ArrayList<Move> moves = gs.getLegalMoves();
         return moves.get((new Random()).nextInt(moves.size()));
     }
 
+
+    public static Move bestMoveIterativeDeepening(GameState gs) {
+
+        long t0 = System.currentTimeMillis();
+        long t = System.currentTimeMillis();
+        Move currMove = null;
+        DEPTH = 2;
+        while (Math.abs(t0 - t) < 300) {
+            currMove = findBestMove(gs);
+            t = System.currentTimeMillis();
+            System.out.println(Math.abs(t0 - t));
+            DEPTH += 1;
+        }
+        return currMove;
+
+        /*
+        Move move = randomMove(gs);
+        Foo genMove = new Foo(gs, move);
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<Move> future = executor.submit(genMove);
+        try {
+            future.get(200, TimeUnit.MILLISECONDS);
+        } catch (ExecutionException | TimeoutException | InterruptedException ignored) {
+
+        }
+        executor.shutdown();
+        return genMove.getMove();
+         */
+    }
+
+
+    public static class Foo implements Callable<Move> {
+        Move m;
+        GameState gs;
+
+        Foo(GameState gs, Move m) {
+            this.gs = gs;
+            this.m = m;
+        }
+
+        @Override
+        public Move call() throws Exception {
+            long t0 = System.currentTimeMillis();
+            long t = System.currentTimeMillis();
+            DEPTH = 1;
+            while (Math.abs(t0 - t) < 10000) {
+                this.m = findBestMove(gs);
+                t = System.currentTimeMillis();
+                System.out.println(Math.abs(t0 - t));
+                DEPTH += 1;
+            }
+            return m;
+        }
+
+        public Move getMove() {
+            return this.m;
+        }
+    }
 
     // Heuristically finds the best possible move.
     public static Move findBestMove(GameState gs) {
@@ -48,8 +107,7 @@ public class MoveGeneration {
         }
     }
 
-
-    // Nodes used to create a move tree consisting off all reachable positions.
+    // A node is a unit of the tree data structure and contains information about the current position and evaluation.
     private static class Node implements Comparable<Node> {
 
         Move move;
@@ -72,21 +130,14 @@ public class MoveGeneration {
             this.children.add(n);
         }
 
-        public void addChildren(ArrayList<Node> nodes) {
-            children.addAll(nodes);
-        }
-
         public Move getMove() {
             return this.move;
         }
 
-
-        // Creates a depth first search in order to find all possible moves to a certain depth. The
-        // mini-max algorithm is used to give each node the best possible evaluation which can be reached
-        // under the assumption that the enemy responds perfectly each time. Alpha-Beta-Pruning prevents visiting
-        // unnecessary nodes, therefore drastically reducing the computation time. The order in which the nodes
-        // are being visited depends on the static evaluation. Choosing the best eval first further reduces computation
-        // time.
+        // Performs a depth first search in order to find all possible moves to a certain depth building the move tree.
+        // Then the mini-max algorithm is used to assign each node the best possible evaluation which can be reached
+        // under the assumption that the enemy responds perfectly each time. Additionally, Alpha-Beta-Pruning prevents visiting
+        // unnecessary nodes, therefore drastically reducing the computation time.
         public double minimaxBestFirst(int depth, double alpha, double beta, boolean maximizing) {
             if (depth == 0) {
                 return Evaluation.getEval(this.move.getExecState());
@@ -104,9 +155,7 @@ public class MoveGeneration {
                 Node n = new Node(m);
                 this.addChild(n);
             }
-            Collections.sort(this.children); // Sort in order to search best nodes first. Drastically reduces visited nodes
             if (maximizing) {
-                Collections.reverse(this.children);
                 double maxEval = minusInf;
                 for (Node n : children) {
                     this.eval = n.minimaxBestFirst(depth - 1, alpha, beta, false);
@@ -166,7 +215,8 @@ public class MoveGeneration {
             }
         }
         return result.get((new Random()).nextInt(result.size()));
-
     }
-
 }
+
+
+

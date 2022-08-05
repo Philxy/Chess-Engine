@@ -3,25 +3,25 @@ package Game;
 import Pieces.Piece;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class GameState {
 
     private Board currentBoard;
     private boolean whiteMoving;
 
+
     public GameState() {
         this.currentBoard = new Board();
         this.whiteMoving = true;
     }
 
+    // Copy GS
     public GameState(GameState gs) {
         this.currentBoard = Board.copyBoard(gs.getCurrBoard());
         this.whiteMoving = gs.getColor();
     }
 
-    // Returns all the legal moves considering the current game state
+    // Returns a list of all legal moves considering the current game state
     public ArrayList<Move> getLegalMoves() {
         ArrayList<Move> moves = new ArrayList<>();
         ArrayList<Piece> pieces = currentBoard.getPieces(whiteMoving);
@@ -37,7 +37,7 @@ public class GameState {
         return moves;
     }
 
-    // Execute move and change game state accordingly
+    // Executes move and changes state of the game accordingly
     public void executeMove(int startSq, int endSq) {
         this.currentBoard.move(startSq, endSq);
         this.whiteMoving = !whiteMoving;
@@ -51,7 +51,4 @@ public class GameState {
         return this.currentBoard;
     }
 
-    public void setCurrBoard(Board newBoard) {
-        this.currentBoard = newBoard;
-    }
 }

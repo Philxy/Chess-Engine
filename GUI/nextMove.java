@@ -30,7 +30,7 @@ public class nextMove implements EventHandler<KeyEvent> {
         if (e.getCode().equals(KeyCode.SPACE)) {
 
             long t1 = System.nanoTime();
-            Move m = MoveGeneration.findBestMove(Main.mainState);
+            Move m = MoveGeneration.bestMoveIterativeDeepening(Main.mainState);
             long t2 = System.nanoTime();
             System.out.println("Checked " + MoveGeneration.nodeCount + " positions with depth "+ (int) ( MoveGeneration.DEPTH+ 1) + " in: " +  Math.abs(t2 - t1) / Math.pow(10, 9) + " s" );
             MoveGeneration.nodeCount = 0;

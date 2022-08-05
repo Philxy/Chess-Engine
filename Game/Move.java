@@ -17,17 +17,17 @@ public class Move {
     private Piece piece;
     private boolean movingColor;
 
-    public Move(GameState gs, Piece p, int endSq) {
+    public Move(GameState gs, Piece piece, int endSq) {
         this.endSq = endSq;
-        this.startSq = p.getPos();
-        this.piece = p;
+        this.startSq = piece.getPos();
+        this.piece = piece;
         this.prevGS = gs;
         this.newGS = new GameState(gs);
         this.newGS.executeMove(startSq, endSq);
         this.movingColor = gs.getColor();
     }
 
-
+    // Determines weather a move is legal according to the rules of chess.
     public boolean moveLegal() {
         ArrayList<Integer> moves = piece.getPseudoLegalMoves(prevGS.getCurrBoard(), startSq);
         if (piece.getColor() != prevGS.getColor()) {
@@ -44,9 +44,8 @@ public class Move {
         return this.newGS;
     }
 
+    // executes a move and updates the board accordingly
     public void updateMainBoard() {
         this.prevGS.executeMove(startSq, endSq);
     }
-
-
 }

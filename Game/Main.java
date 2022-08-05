@@ -1,20 +1,15 @@
 package Game;
 
-
 import GUI.Screen;
 import javafx.application.Application;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 public class Main {
 
-    public static GameState mainState = new GameState();
+    public static GameState mainState;
 
     public static void main(String[] args) {
+        mainState = new GameState();
         Screen.loadImages();
         Application.launch(Screen.class);
     }
-
-
 }

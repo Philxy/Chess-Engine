@@ -17,7 +17,6 @@ public class Util {
     private final static int[] horseOffset = new int[]{-23, -25, 23, 25, -10, 14, -14, 10};
     private final static int[] kingOffset = new int[]{-1, 1, 12, -12, 13, -13, -11, 11};
 
-
     public final static int[] mailbox = new int[]{
             26, 27, 28, 29, 30, 31, 32, 33,
             38, 39, 40, 41, 42, 43, 44, 45,
@@ -35,12 +34,12 @@ public class Util {
 
 
     /**
-     * Returns a list of all pseudo legal moves given an offset array for a specific piece
+     * Returns a list of all pseudo legal moves given an offset array of a specific piece.
      *
-     * @param board
-     * @param sq
-     * @param offsets
-     * @return
+     * @param board current position
+     * @param sq initial square
+     * @param offsets offsets representing the pieces movement
+     * @return pseudo legal moves
      */
     public static ArrayList<Integer> pseudoLegal(Board board, int sq, int[] offsets) {
         ArrayList<Integer> moves = new ArrayList<>();
@@ -71,11 +70,11 @@ public class Util {
     }
 
     /**
-     * Returns list of all pseudo legal knight moves
+     * Returns list of all pseudo legal knight moves.
      *
-     * @param board
-     * @param sq
-     * @return
+     * @param board current position
+     * @param sq initial square
+     * @return pseudo legal knight moves
      */
     public static ArrayList<Integer> specialPseudoLegal(Board board, int sq, int[] offset) {
         ArrayList<Integer> moves = new ArrayList<>();
@@ -103,19 +102,23 @@ public class Util {
         return moves;
     }
 
+    // Returns all pseudo legal horizontal moves.
     public static ArrayList<Integer> diagPseudoLegal(Board board, int sq) {
         return pseudoLegal(board, sq, diagOffset);
     }
 
+    // Returns all pseudo legal horizontal moves.
     public static ArrayList<Integer> horizPseudoLegal(Board board, int sq) {
         return pseudoLegal(board, sq, horizOffset);
     }
 
+    // Returns all pseudo legal king moves.
     public static ArrayList<Integer> kingPseudoLegal(Board board, int sq) {
         return specialPseudoLegal(board, sq, kingOffset);
 
     }
 
+    // Returns all pseudo legal knight moves.
     public static ArrayList<Integer> knightPseudoLegal(Board board, int sq) {
         return specialPseudoLegal(board, sq, horseOffset);
     }
@@ -132,8 +135,7 @@ public class Util {
     // Determines weather the king is in check
     public static boolean isCheck(Board board, boolean white) {
         int kingPos = board.getKingPos(white);
-        ArrayList<Integer> legalMoves = new ArrayList<>();
-        legalMoves.addAll(getAllPseudoLegalMoves(board, !white));
+        ArrayList<Integer> legalMoves = new ArrayList<>(getAllPseudoLegalMoves(board, !white));
         return legalMoves.contains(kingPos);
     }
 }

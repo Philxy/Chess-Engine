@@ -31,14 +31,6 @@ public class Evaluation {
         } else if (!gs.getColor() && Util.isCheck(gs.getCurrBoard(), !gs.getColor())) {
             eval += CHECK;
         }
-        if (pieces.size() < 12) {
-            MoveGeneration.DEPTH = 4;
-        }
-
-        if (pieces.size() < 7) {
-            CHECK = 300;
-            MoveGeneration.DEPTH = 5;
-        }
 
         return eval ;
     }
