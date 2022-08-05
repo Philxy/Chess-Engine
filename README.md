@@ -1,6 +1,5 @@
 # Chess-Engine
-Implementation of Chess with a graphical user interface using JavaFX.
-
-The included chess engine features depth first search with mini-max, alpha-beta-pruning and a greedy evaluation function.
+Interactive implementation of the game of chess with a graphical user interface using JavaFX.
+The game includes a self written engine featuring depth first search with mini-max and alpha-beta-pruning.
 
 ![](https://github.com/Philxy/Chess-Engine/blob/main/chess.gif)
